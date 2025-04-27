@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ATS Resume Tester</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+  <canvas id="backgroundConfetti"></canvas>
+
+  <header>
+    <h1>ATS Resume Tester</h1>
+    <p>Make your resume stand out for automated systems.</p>
+  </header>
+
+  <main>
+    <div class="upload-card">
+      <h2>Upload Your Resume</h2>
+      
+      <!-- File upload form -->
+      <!-- <form class="file-upload-form">
+        <label class="file-upload-label" for="resumeUpload">
+          <div class="file-upload-design">
+            <svg height="1em" viewBox="0 0 640 512">
+              <path
+                d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z"
+              ></path>
+            </svg>
+            <p>Drag and Drop</p>
+            <p>or</p>
+            <span class="browse-button">Browse file</span>
+          </div>
+          <input type="file" id="resumeUpload" accept=".txt,.pdf" />
+        </label>
+      </form> -->
+
+      <!-- File upload form -->
+<form class="file-upload-form">
+    <label class="file-upload-label" for="resumeUpload" id="uploadLabel">
+      <div class="file-upload-design">
+        <svg height="1em" viewBox="0 0 640 512">
+          <path
+            d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z"
+          ></path>
+        </svg>
+        <p id="uploadText">Drag and Drop</p>
+        <p>or</p>
+        <span class="browse-button">Browse file</span>
+      </div>
+      <input type="file" id="resumeUpload" accept=".txt,.pdf" />
+    </label>
+  </form>
+  
+      
+      <button onclick="analyzeResume()">Analyze Resume</button>
+    </div>
+
+    <div id="progressContainer" class="hidden">
+      <p id="progressText">Analyzing...</p>
+      <div id="progressBar">
+        <div id="progressFill"></div>
+      </div>
+    </div>
+
+    <div id="resultContainer" class="hidden">
+      <h2>Results:</h2>
+      <p id="score">Score: </p>
+      <div id="tips"></div>
+    </div>
+  </main>
+
+  <div id="successAnimation" class="hidden">
+    🎉 Resume Looks Great! 🎉
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

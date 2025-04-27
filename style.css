@@ -1,0 +1,225 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body & Fonts */
+  body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(to right, #8EC5FC, #E0C3FC);
+    overflow-x: hidden;
+    position: relative;
+  }
+  
+  #backgroundConfetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  
+  header {
+    text-align: center;
+    padding: 60px 20px 20px;
+    color: white;
+  }
+  
+  header h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+    animation: fadeInDown 1s ease forwards;
+  }
+  
+  header p {
+    font-size: 18px;
+    animation: fadeInDown 1.2s ease forwards;
+  }
+  
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+  }
+  
+  .upload-card {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    animation: fadeInUp 1.5s ease forwards;
+  }
+  
+  .upload-card h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Custom File Upload Section */
+  .file-upload-form {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10%;
+  }
+  
+  .file-upload-label input {
+    display: none;
+  }
+  
+  .file-upload-label svg {
+    height: 50px;
+    fill: rgb(82, 82, 82);
+    margin-bottom: 20px;
+  }
+  
+  .file-upload-label {
+    cursor: pointer;
+    background-color: #ddd;
+    padding: 30px 70px;
+    border-radius: 40px;
+    border: 2px dashed rgb(82, 82, 82);
+    box-shadow: 0px 0px 200px -50px rgba(0, 0, 0, 0.719);
+  }
+  
+  .file-upload-design {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+  
+  .browse-button {
+    background-color: rgb(82, 82, 82);
+    padding: 5px 15px;
+    border-radius: 10px;
+    color: white;
+    transition: all 0.3s;
+  }
+  
+  .browse-button:hover {
+    background-color: rgb(14, 14, 14);
+  }
+  
+  button {
+    margin-top: 20px;
+    padding: 12px 30px;
+    background: #4CAF50;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    animation: pulse 2s infinite;
+  }
+  
+  button:hover {
+    background: #45a049;
+    transform: scale(1.05);
+  }
+  
+  #progressContainer, #resultContainer {
+    margin-top: 30px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  #progressBar {
+    width: 100%;
+    background: #eee;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 20px;
+    margin-top: 10px;
+  }
+  
+  #progressFill {
+    height: 100%;
+    width: 0%;
+    background: #4CAF50;
+    transition: width 0.3s;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  #successAnimation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: #4CAF50;
+    color: white;
+    font-size: 28px;
+    padding: 30px 60px;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    animation: popIn 1s forwards;
+    z-index: 10;
+  }
+  
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes popIn {
+    to {
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  /* When file is selected */
+.file-selected {
+    background-color: #f0f8ff;  /* Change background color */
+  }
+  
+  /* When dragging a file over */
+  .drag-over {
+    border-color: #4CAF50;  /* Change border color when dragging over */
+  }
+  
+  
