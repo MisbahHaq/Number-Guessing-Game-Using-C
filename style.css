@@ -212,14 +212,13 @@
     100% { transform: scale(1); }
   }
   
-  /* When file is selected */
+
 .file-selected {
-    background-color: #f0f8ff;  /* Change background color */
+    background-color: #f0f8ff;  
   }
   
-  /* When dragging a file over */
   .drag-over {
-    border-color: #4CAF50;  /* Change border color when dragging over */
+    border-color: #4CAF50;  
   }
   
   

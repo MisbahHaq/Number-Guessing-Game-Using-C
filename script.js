@@ -163,7 +163,7 @@ uploadLabel.addEventListener('drop', (event) => {
 });
 
 function appendFileName(name) {
-  fileNameList.innerHTML = ""; // Only keep one name
+  fileNameList.innerHTML = "";
   const li = document.createElement("li");
   li.textContent = name;
   fileNameList.appendChild(li);
