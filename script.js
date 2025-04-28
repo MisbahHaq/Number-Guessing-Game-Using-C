@@ -1,4 +1,4 @@
-// Start background confetti
+// Background confetti
 const backgroundCanvas = document.getElementById('backgroundConfetti');
 const backgroundConfetti = confetti.create(backgroundCanvas, { resize: true, useWorker: true });
 
@@ -16,7 +16,7 @@ setInterval(() => {
   });
 }, 400);
 
-// Handling resume upload and analysis
+// Resume analysis logic
 let resumeText = "";
 
 function analyzeResume() {
@@ -61,12 +61,12 @@ function performAnalysis() {
   document.getElementById('progressText').innerText = "Analyzing...";
 
   let progress = 0;
-  const progressInterval = setInterval(() => {
+  const interval = setInterval(() => {
     if (progress < 100) {
       progress += 10;
       document.getElementById('progressFill').style.width = progress + '%';
     } else {
-      clearInterval(progressInterval);
+      clearInterval(interval);
       showResults();
     }
   }, 500);
@@ -75,51 +75,57 @@ function performAnalysis() {
 function showResults() {
   document.getElementById('progressContainer').classList.add('hidden');
   document.getElementById('resultContainer').classList.remove('hidden');
-  
-  // Generate the score and limit it to two decimal points
+
   const score = (Math.random() * 100).toFixed(2);
   document.getElementById('score').innerText = `Score: ${score}`;
+  document.getElementById('tips').innerHTML = `
+    <ul>
+      <li>Consider using more action verbs.</li>
+      <li>Include specific accomplishments.</li>
+    </ul>
+  `;
 
-  const tips = document.getElementById('tips');
-  tips.innerHTML = "<ul><li>Consider using more action verbs.</li><li>Include specific accomplishments.</li></ul>";
-
-  // Show success animation
   document.getElementById('successAnimation').classList.remove('hidden');
   setTimeout(() => {
     document.getElementById('successAnimation').classList.add('hidden');
   }, 2000);
 }
 
-// File upload handling
+// File upload interactions
 const fileInput = document.getElementById('resumeUpload');
 const uploadLabel = document.getElementById('uploadLabel');
 const uploadText = document.getElementById('uploadText');
+const fileNameList = document.getElementById('fileNameList');
 
-// When a file is selected
 fileInput.addEventListener('change', (event) => {
   const file = event.target.files[0];
   if (file) {
-    uploadText.innerText = file.name;  // Display the file name
-    uploadLabel.classList.add('file-selected');  // Optional: Add a class for styling (e.g., change background color)
+    appendFileName(file.name);
+    uploadLabel.classList.add('file-selected');
   }
 });
 
-// Drag and Drop handling
 uploadLabel.addEventListener('dragover', (event) => {
-  event.preventDefault(); // Allow drop
-  uploadLabel.classList.add('drag-over'); // Optional: Change style when dragging over
+  event.preventDefault();
+  uploadLabel.classList.add('drag-over');
 });
 
 uploadLabel.addEventListener('dragleave', () => {
-  uploadLabel.classList.remove('drag-over'); // Reset style when drag leaves
+  uploadLabel.classList.remove('drag-over');
 });
 
 uploadLabel.addEventListener('drop', (event) => {
-  event.preventDefault(); // Prevent default behavior (e.g., opening the file)
+  event.preventDefault();
   const file = event.dataTransfer.files[0];
   if (file) {
-    fileInput.files = event.dataTransfer.files; // Programmatically set the file input
-    uploadText.innerText = file.name; // Display the file name
-    uploadLabel.classList.add('file-selected'); // Optional: Add a class for styling
+    fileInput.files = event.dataTransfer.files;
+    appendFileName(file.name);
+    uploadLabel.classList.add('file-selected');
   }
 });
+
+function appendFileName(name) {
+  const li = document.createElement('li');
+  li.textContent = name;
+  fileNameList.appendChild(li);
+}
