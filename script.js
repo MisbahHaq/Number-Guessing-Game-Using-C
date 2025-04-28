@@ -1,4 +1,3 @@
-// Background confetti
 const backgroundCanvas = document.getElementById('backgroundConfetti');
 const backgroundConfetti = confetti.create(backgroundCanvas, { resize: true, useWorker: true });
 
@@ -16,7 +15,6 @@ setInterval(() => {
   });
 }, 400);
 
-// Resume analysis logic
 let resumeText = "";
 
 function analyzeResume() {
@@ -69,21 +67,19 @@ function performAnalysis() {
       clearInterval(interval);
       showResults();
     }
-  }, 500);
+  }, 300);
 }
 
 function showResults() {
   document.getElementById('progressContainer').classList.add('hidden');
   document.getElementById('resultContainer').classList.remove('hidden');
 
-  const score = (Math.random() * 100).toFixed(2);
-  document.getElementById('score').innerText = `Score: ${score}`;
-  document.getElementById('tips').innerHTML = `
-    <ul>
-      <li>Consider using more action verbs.</li>
-      <li>Include specific accomplishments.</li>
-    </ul>
-  `;
+  const { score, tips } = analyzeContent(resumeText);
+
+  document.getElementById('score').innerText = `Score: ${score.toFixed(1)}`;
+  document.getElementById('tips').innerHTML = tips.length
+    ? "<ul>" + tips.map(t => `<li>${t}</li>`).join("") + "</ul>"
+    : "<p>Great job! Your resume is well optimized.</p>";
 
   document.getElementById('successAnimation').classList.remove('hidden');
   setTimeout(() => {
@@ -91,7 +87,49 @@ function showResults() {
   }, 2000);
 }
 
-// File upload interactions
+function analyzeContent(text) {
+  let score = 0;
+  const tips = [];
+
+  const sections = ["education", "experience", "skills", "certifications"];
+  sections.forEach(section => {
+    if (text.toLowerCase().includes(section)) {
+      score += 5;
+    } else {
+      tips.push(`Missing section: ${section}`);
+    }
+  });
+
+  const keywords = ["team", "project", "python", "managed", "designed"];
+  const foundKeywords = keywords.filter(word => text.toLowerCase().includes(word));
+  score += foundKeywords.length * 2;
+
+  const actionVerbs = ["led", "developed", "increased", "improved"];
+  const foundActions = actionVerbs.filter(verb => text.toLowerCase().includes(verb));
+  if (foundActions.length === 0) {
+    tips.push("Use more action verbs to describe achievements.");
+  } else {
+    score += foundActions.length * 2;
+  }
+
+  const bullets = (text.match(/•|-/g) || []).length;
+  if (bullets < 5) {
+    tips.push("Use more bullet points for readability.");
+  } else {
+    score += 5;
+  }
+
+  if (text.length > 3000) {
+    tips.push("Resume might be too long. Aim for 1–2 pages.");
+    score -= 5;
+  }
+
+  return {
+    score: Math.min(100, score + 50),
+    tips
+  };
+}
+
 const fileInput = document.getElementById('resumeUpload');
 const uploadLabel = document.getElementById('uploadLabel');
 const uploadText = document.getElementById('uploadText');
@@ -125,7 +163,8 @@ uploadLabel.addEventListener('drop', (event) => {
 });
 
 function appendFileName(name) {
-  const li = document.createElement('li');
+  fileNameList.innerHTML = ""; // Only keep one name
+  const li = document.createElement("li");
   li.textContent = name;
   fileNameList.appendChild(li);
 }
